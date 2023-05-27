@@ -2,6 +2,11 @@ import { Button, Col, Row, Table } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import AdminLinksComponents from "../../components/admin/AdminLinksComponents";
 
+const deleteHandler = () => {
+    if(window.confirm("Are You Sure?"))
+        alert("Product Delete!") ;
+}
+
 const AdminProductsPage = () => {
     return (
         <Row className="m-5">
@@ -43,16 +48,13 @@ const AdminProductsPage = () => {
                                             <i className="bi bi-pencil-square"></i>
                                         </Button>
                                     </LinkContainer>
-                                    /
-                                    <Button className="btm-sm" variant="danger">
-
+                                    {" / "}
+                                    <Button className="btn-sm" variant="danger" onClick={deleteHandler}>
+                                        <i className="bi bi-x-circle"></i>
                                     </Button>
 
                                 </td>
-                                <td>PayPal</td>
-                                <td>
-
-                                </td>
+                              
                             </tr>
                         ))}
 
