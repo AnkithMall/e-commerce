@@ -1,15 +1,35 @@
 import { Outlet , Navigate } from "react-router-dom";
-const ProtectedRoutesComponent = ({admin}) => {
-    let auth = false ;
-    if(admin){
-        let adminAuth = true ;
-        if(adminAuth) auth = true ;
-    }else{
-        let userAuth = true ;
-        if (userAuth) auth = true ;
-    }
+import axios from "axios";
+import { useState,useEffect } from "react";
+import LoginPage from "../pages/LoginPage";
+import UserChatComponent from "./user/UserChatComponent";
 
-    return auth ? <Outlet /> : <Navigate to="/login" /> ;
+const ProtectedRoutesComponent = ({admin}) => {
+    const [isAuth,setIsAuth] = useState() ;
+
+    useEffect(() => {
+        axios.get("/api/get-token").then(res => {
+            if(res.data.token){
+                setIsAuth(res.data.token);
+            }
+            return isAuth ;
+        })
+    },[isAuth])
+
+    if(isAuth === undefined) return <LoginPage/> ; 
+
+    return isAuth && admin && isAuth !== "admin" ? (
+        <Navigate to="/login" />
+    ) : isAuth && admin ? (
+        <Outlet/>
+    ) : isAuth && !admin ? (
+        <>
+            <UserChatComponent />
+            <Outlet/>
+        </>
+    ) : (
+        <Navigate to="/login" />
+    )
 }
 
 export default ProtectedRoutesComponent ;

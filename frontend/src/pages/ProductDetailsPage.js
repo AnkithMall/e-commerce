@@ -3,8 +3,18 @@ import AddedToCartMessageComponent from "../components/AddedToCartMessageCompone
 import {Rating} from "react-simple-star-rating" ;
 import ImageZoom from "js-image-zoom" ;
 import { useEffect } from "react";
+import {addToCart } from "../redux/actions/cartActions" ;
+import {useDispatch, useSelector } from "react-redux" ;
 
 const ProductDetailsPage = () => {
+    const dispatch = useDispatch() ;
+    const addToCartHandler = () => {
+        dispatch(addToCart());
+    }
+
+    const products = useSelector((state) => state.cart.value) ;
+
+
     var options = {
         scale: 1.7 ,
         offset:{ vertical : 0 , horizontal : 0 },
@@ -42,7 +52,7 @@ const ProductDetailsPage = () => {
                     <Row>
                         <Col md={8}>
                             <ListGroup variant="flush">
-                                <ListGroup.Item><h1>Product Name</h1></ListGroup.Item>
+                                <ListGroup.Item><h1>Product Name {products}</h1></ListGroup.Item>
                                 <ListGroup.Item>
                                     <Rating readonly size={20}
                                     initialValue={4} /> (1)
@@ -62,7 +72,7 @@ const ProductDetailsPage = () => {
                                     <option value="3">4</option>
                                 </Form.Select></ListGroup.Item>
                                 <ListGroup.Item>
-                                    <Button variant="danger">Add to Cart</Button>
+                                    <Button onClick={addToCartHandler} variant="danger">Add to Cart</Button>
                                 </ListGroup.Item>
                                 
                             </ListGroup>

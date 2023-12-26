@@ -17,7 +17,7 @@ const AdminChatRoomComponent = () => {
                 <Toast.Body >
                     <div style={{ maxHeight: "500px", overflow: "auto" }}>
                         {Array.from({ length: 30 }).map((_, idx) => (
-                            <Fragment>
+                            <Fragment key={idx}>
                                 <p className="bg-primary p-3 ms-4 rounded-pill text-light">
                                     <b>User Wrote:</b> Hello, World! This is a chat Message.
                                 </p>
@@ -45,7 +45,7 @@ const AdminChatRoomComponent = () => {
                 <Toast.Body >
                     <div style={{ maxHeight: "500px", overflow: "auto" }}>
                         {Array.from({ length: 30 }).map((_, idx) => (
-                            <Fragment>
+                            <Fragment key={idx}>
                                 <p className="bg-primary p-3 ms-4 rounded-pill text-light">
                                     <b>User Wrote:</b> Hello, World! This is a chat Message.
                                 </p>
